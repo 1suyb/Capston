@@ -10,6 +10,7 @@ import torch.nn as nn
 import torch.nn.functional as F
 from torchvision.utils import save_image, make_grid
 from tqdm import tqdm
+import os
 
 ModelName = ["SRGAN", "SRGAN_bi", "SRGAN_SOCA", "SRGAN_SOCA_bi"]
 
@@ -45,6 +46,7 @@ class Train:
                                           batch_size=1,
                                           num_workers=n_cpu)
         self.model = model
+        os.makedirs(f"./saved_models/{self.model}",exist_ok=True)
 
         def Train_D():
             cuda = True if torch.cuda.is_available() else False
