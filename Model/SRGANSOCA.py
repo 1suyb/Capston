@@ -3,7 +3,7 @@ import torch.nn as nn
 import torch.nn.functional as F
 from torchvision.models import vgg19
 from torch.autograd import Function
-import MPNCOV
+from Model.MPNCOV import MPNCOV
 
 class FeatureExtractor(nn.Module):
     def __init__(self):
@@ -24,7 +24,7 @@ class ResidualBlock_Soca(nn.Module):
             nn.Conv2d(64, 64, kernel_size=3, stride=1, padding=1),
             nn.BatchNorm2d(64),
         )
-        self.conv2 = SOCA(64).cuda()
+        self.conv2 = SOCA(64)
 
     def forward(self, x):
         out = self.conv_block(x)
@@ -168,3 +168,6 @@ class SOCA(nn.Module) :
         cov_mat_sum = cov_mat_sum.view(batch_size,C,1,1)
         y_cov = self.conv_du(cov_mat_sum)
         return y_cov*x
+
+if __name__ == "__main__" :
+    t = MPNCOV.Covpool()
