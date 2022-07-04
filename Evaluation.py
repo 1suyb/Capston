@@ -86,7 +86,7 @@ class Evaluation :
         return (PSNR(self.HR, self.HR), SSIM(self.HR, self.HR)[0])
 
     def Bilinear(self) :
-        model = nn.Upsample(scale_factor=4,mode="bilinear")
+        model = nn.Upsample(scale_factor=4,mode="bicubic")
         return self.GetScore(model,"bilinear")
     
     def SRGAN(self) :
